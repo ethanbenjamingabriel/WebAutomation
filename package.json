@@ -1,0 +1,24 @@
+{
+  "name": "webautomation",
+  "version": "1.0.0",
+  "description": "This repository will be used to created UI automated tests for the Script Runner Application",
+  "main": "index.js",
+  "scripts": {
+    "open": "npx cypress open",
+    "chrome": "npx cypress run --browser chrome",
+    "electron": "npx cypress run --browser electron"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ethanbenjamingabriel/WebAutomation.git"
+  },
+  "author": "Ethan Gabriel",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ethanbenjamingabriel/WebAutomation/issues"
+  },
+  "homepage": "https://github.com/ethanbenjamingabriel/WebAutomation#readme",
+  "devDependencies": {
+    "cypress": "^13.6.4"
+  }
+}
