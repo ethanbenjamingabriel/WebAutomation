@@ -27,6 +27,15 @@ describe('Navigate Dashboard Features', () => {
     });
 
     it('Buttons & Dropdown Menu Functionality', () => {
+        /*
+        cy.get('.jss25').should('be.visible').click({ force: true });
+        cy.get('.MuiMenu-list').invoke('text')
+            .should('include', 'All')
+            .should('include', 'Future')
+            .should('include', 'Present')
+            .should('include', 'Past');
+        */
+        
         cy.get('.jss7').should('be.visible').click();
         cy.get('.MuiMenu-list').its('length').should('eq', 1);
         cy.get('.MuiMenu-list').invoke('text').should('eq', 'Cards on FileLog out');
@@ -38,44 +47,42 @@ describe('Navigate Dashboard Features', () => {
         cy.get('.jss26').last().should('be.visible').click({ force: true });
         cy.get('.MuiPickersBasePicker-container').should('be.visible');
 
-        /*
-        cy.get('.MuiOutlinedInput-root.jss25').should('be.visible').dblclick({ force: true });
-        cy.get('.MuiMenu-list').invoke('text')
-            .should('include', 'All')
-            .should('include', 'Future')
-            .should('include', 'Present')
-            .should('include', 'Past');
-        */
-
         cy.get('.MuiOutlinedInput-input').last().should('be.visible').type('test', { force: true });
         cy.get('.jss39').click({ force: true });
         cy.get('.jss39').click({ force: true });
     });
 
     it('Opening Delivery', () => {
-        var date = '';
-        var deliveryNumber = '';
-        var numOrders = '';
-        var driver = '';
-        
-        cy.get('.jss43').first().children().eq(0).invoke('text').then((val1) => {
-            date = val1;
-            cy.get('.jss43').first().children().eq(1).invoke('text').then((val2) => {
-                deliveryNumber = val2;
-                cy.get('.jss43').first().children().eq(2).invoke('text').then((val3) => {
-                    numOrders = val3;
-                    cy.get('.jss43').first().children().eq(3).invoke('text').then((val4) => {
-                        driver = val4;
-                        cy.get('.jss43').first().click();
-                        cy.get('.MuiPaper-elevation1').invoke('text').should('include', `Delivery Date: ${date}`);
-                        cy.url().should('include', `/dashboard/delivery/${deliveryNumber}`);
-                        cy.get('.MuiTypography-root.MuiTypography-body2').invoke('text').should('include', `Orders: ${numOrders}`);
-                        cy.get('.MuiPaper-elevation1').invoke('text').should('include', `Driver: ${driver}`);
+        var date, deliveryNumber, numOrders, driver, status = '';
+
+        cy.get('.jss43').its('length').then((length) => {
+            for (let i = 0; i < length; i++) {
+                cy.get('.jss43').eq(i).children().eq(0).invoke('text').then((val1) => {
+                    date = val1;
+                    cy.get('.jss43').eq(i).children().eq(1).invoke('text').then((val2) => {
+                        deliveryNumber = val2;
+                        cy.get('.jss43').eq(i).children().eq(2).invoke('text').then((val3) => {
+                            numOrders = val3;
+                            cy.get('.jss43').eq(i).children().eq(3).invoke('text').then((val4) => {
+                                driver = val4;
+                                cy.get('.jss43').eq(i).children().eq(4).invoke('text').then((val5) => {
+                                    status = val5;
+                                    cy.get('.jss43').eq(i).click();
+                                    if(status != 'Draft Delivery' && driver.length > 1) {
+                                        cy.get('.MuiPaper-elevation1').invoke('text').should('include', `Delivery Date: ${date}`);
+                                        cy.get('.MuiPaper-elevation1').invoke('text').should('include', `Driver: ${driver}`);
+                                    }
+                                    cy.url().should('include', `/dashboard/delivery/${deliveryNumber}`);
+                                    cy.get('.MuiTypography-root.MuiTypography-body2').invoke('text').should('include', `Orders: ${numOrders}`);
+                                });
+                            });
+                        });
                     });
                 });
-            });
+                cy.get('.sc-gKPRtg.hruhHh').first().click();
+                cy.reload();
+            }
         });
-        cy.get('.sc-gKPRtg.hruhHh').first().click();
     });
 
 });
