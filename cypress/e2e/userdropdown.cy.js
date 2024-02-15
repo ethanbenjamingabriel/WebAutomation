@@ -1,5 +1,10 @@
 describe('Test User Dropdown Items', () => {
 
+    beforeEach(() => {
+        cy.viewport('macbook-13');
+        cy.login('/dashboard');
+      });
+
     it('Log out of Script Runner from Dashboard', () => {
         cy.get('.jss7').should('be.visible').click();
         cy.get('.jss3').should('be.visible').click();
