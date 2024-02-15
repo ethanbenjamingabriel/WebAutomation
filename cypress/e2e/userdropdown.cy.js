@@ -28,7 +28,7 @@ describe('Test User Dropdown Items', () => {
         cy.get('.MuiOutlinedInput-input').eq(2).type('Gabriel');
 
         /*
-        cy.get('#cardNumber-label').type(4537123412341234);
+        cy.get('#cardNumber').type(4537123412341234);
         cy.get('#expirationDate').type(1234);
         cy.get('#cvv').type(123);
         cy.get('#postalCode').type(12345);
