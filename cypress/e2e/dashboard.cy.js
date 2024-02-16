@@ -79,7 +79,7 @@ describe('Navigate Dashboard Features', () => {
                         });
                     });
                 });
-                cy.get('.sc-gKPRtg.hruhHh').first().click();
+                cy.get('button').eq(2).click();
                 cy.reload();
             }
         });
